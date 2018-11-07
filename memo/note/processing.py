@@ -2,7 +2,7 @@ from docx import Document
 from docx.shared import Inches, Cm
 import datetime
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from django.http import HttpResponse
+from django.http import FileResponse
 
 def get_note(company_name, budget_item, pay_reason, pay_check, pay_sum):
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
@@ -71,7 +71,7 @@ def get_note(company_name, budget_item, pay_reason, pay_check, pay_sum):
     hdr_cells[0].width = Cm(5.0)
     hdr_cells[1].width = Cm(12.0)
     document.save('note.docx')
-    print(dir(HttpResponse))
+    return FileResponse('./note.docx', as_attachment=True, filename='note.docx')
     
     
 if __name__ == "__main__":   

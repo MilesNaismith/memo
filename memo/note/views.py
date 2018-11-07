@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Budget, Company
 from .processing import get_note
 
+
 # Create your views here.
 def note(request):
     if request.method == "POST":
@@ -12,6 +13,7 @@ def note(request):
         pay_check = request.POST['pay_check']
         pay_sum = request.POST['pay_sum']
         get_note(company_name, budget_item, pay_reason, pay_check, pay_sum)
+        #FileResponse(p, as_attachment=True, filename='note.docx')
         return render(request, 'note/success.html')
     budget_items = Budget.objects.filter()
     companies = Company.objects.filter()
