@@ -1,0 +1,55 @@
+{% extends 'note/base.html' %}
+
+
+{% block content %}
+<h4 class ="text-center">Заполните и нажмите "Готово"</h4>
+<h5 class ="text-center">Выберите компанию</h5>
+    <form action="" method="POST">{% csrf_token %}
+        <div class="row margin-bot-top">
+            <div class="row">
+                {% for company in companies %}
+                    <div class="col-sm-3 margin-bot-top">
+                        <div class="text-center align-middle shadow-lg p-3 mb-3 bg-white rounded">
+                            {{company.company_name}}
+                            <input type="radio" name="companies" value="{{company.company_name}}">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Счет №</span>
+            </div>
+            <input type="text" name=pay_check class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div> 
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Сумма платежа</span>
+            </div>
+            <input type="text" name="pay_sum" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        </div>              
+        <div class="input-group margin-bot-top">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Обоснование платежа</span>
+            </div>
+            <textarea name="pay_reason" class="form-control" aria-label="Обоснование платежа"></textarea>
+        </div>
+        <div class="row margin-bot-top">
+            <div class="row">
+                {% for budget_item in budget_items %}
+                    <div class="col-sm-3 margin-bot-top">
+                        <div class="text-center align-middle shadow-lg p-3 mb-3 bg-white rounded">
+                            {{budget_item.budget_item}}
+                            <input type="radio" name="budget_items" value="{{budget_item.budget_item}}">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm margin-bot-top">
+            <button type="submit" class="btn btn-block btn-success">Готово</button>
+        </div> 
+    </form>
+</div>        
+{% endblock %}     
