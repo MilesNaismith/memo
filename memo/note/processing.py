@@ -2,9 +2,12 @@ from docx import Document
 from docx.shared import Inches, Cm
 import datetime
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from django.http import FileResponse
+from shutil import copyfile
+note_counter = 1
 
 def get_note(company_name, budget_item, pay_reason, pay_check, pay_sum):
+    global note_counter
+    note_name = 'Служебка{}'.format(note_counter)
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     document = Document()
     ###Шапка###
@@ -71,7 +74,8 @@ def get_note(company_name, budget_item, pay_reason, pay_check, pay_sum):
     hdr_cells[0].width = Cm(5.0)
     hdr_cells[1].width = Cm(12.0)
     document.save('note.docx')
-    return FileResponse('./note.docx', as_attachment=True, filename='note.docx')
+    copyfile('./note.docx', './note/media/{}'.format(note_name))
+    note_counter += 1 
     
     
 if __name__ == "__main__":   
