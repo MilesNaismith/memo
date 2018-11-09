@@ -3,13 +3,8 @@ from docx.shared import Inches, Cm
 import datetime
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from shutil import copyfile
-from io import BytesIO
-from django.http import HttpResponse
-
-note_counter = 1
 
 def get_note(company_name, budget_item, pay_reason, pay_check, pay_sum):
-    global note_counter
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     document = Document()
     ###Шапка###
@@ -75,21 +70,9 @@ def get_note(company_name, budget_item, pay_reason, pay_check, pay_sum):
     hdr_cells[0].text = 'Информация о бюджете'
     hdr_cells[0].width = Cm(5.0)
     hdr_cells[1].width = Cm(12.0)
-    f = BytesIO()
-    document.save(f)
-    length = f.tell()
-    f.seek(0)
-    #note_name = 'Служебка {} {}'.format(company_name, note_counter)
-    #copyfile('./note.docx', './note/media/{}'.format(note_name))
-    note_counter += 1 
-    response = HttpResponse(
-        f.getvalue(),
-        content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    )
-    response['Content-Disposition'] = 'attachment; filename=Служебка {} {}.docx'.format(company_name, note_counter)
-    response['Content-Length'] = length
-    print(dir(response))
-    print(response)
-    return response
+    document.save('note.docx')
+    copyfile('note.docx', 'note/media/note.docx')
+    
+    
 if __name__ == "__main__":   
     get_note()    
