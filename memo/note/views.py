@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import Budget, Company
 from .processing import get_note
-
+from docx import Document
+from django.http import FileResponse, HttpResponse
+import io
 
 # Create your views here.
 def note(request):
@@ -18,3 +20,4 @@ def note(request):
     budget_items = Budget.objects.filter()
     companies = Company.objects.filter()
     return render(request, 'note/note.html', {'budget_items': budget_items, 'companies': companies})
+
