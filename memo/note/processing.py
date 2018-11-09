@@ -71,7 +71,7 @@ def get_note(company_name, budget_item, pay_reason, pay_check, pay_sum):
     hdr_cells[0].width = Cm(5.0)
     hdr_cells[1].width = Cm(12.0)
     document.save('note.docx')
-    copyfile('note.docx', 'note/media/note.docx')
+    copyfile('/home/ito0010/memo/memo/note.docx', '/home/ito0010/memo/memonote/media/note.docx')
     
     
 if __name__ == "__main__":   
