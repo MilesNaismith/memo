@@ -3,7 +3,9 @@ from docx.shared import Inches, Cm
 import datetime
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from shutil import copyfile
+import os
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def get_note(company_name, budget_item, pay_reason, pay_check, pay_sum):
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     document = Document()
@@ -71,7 +73,9 @@ def get_note(company_name, budget_item, pay_reason, pay_check, pay_sum):
     hdr_cells[0].width = Cm(5.0)
     hdr_cells[1].width = Cm(12.0)
     document.save('note.docx')
-    copyfile('/home/ito0010/memo/memo/note.docx', '/home/ito0010/memo/memonote/media/note.docx')
+    file_path = os.path.join(BASE_DIR, 'note.docx')
+    file_copy_path = os.path.join(BASE_DIR, 'note/media/note.docx')
+    copyfile(file_path, file_copy_path)
     
     
 if __name__ == "__main__":   
